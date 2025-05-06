@@ -3,6 +3,11 @@ import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import cloudinary from "../lib/cloudinary.js";
 
+export const test = async (req, res) => {
+  res.status(200).json({ message: "Auth route is working" });
+
+}
+
 export const signup = async (req, res) => {
   const { fullName, email, password } = req.body;
   try {

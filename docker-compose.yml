@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: debjyoti08/frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - chart-app-network
+    environment:
+      - BACKEND_URL=http://backend:5001
+
+  backend:
+    image: debjyoti08/backend
+    ports:
+      - "5001:5001"
+    depends_on:
+      - mongo
+    networks:
+      - chart-app-network
+    environment:
+      - MONGO_URI=mongodb://root:admin@mongo:27017/chat-app?authSource=admin
+      - PORT=5001
+      - NODE_ENV=production
+      - JWT_SECRET=9f93f2e0b3214c9c89fd348bf73c1a4982ef86fdc05d5fa57be6a5cc377a5d3b
+
+  mongo:
+    image: debjyoti08/mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - chart-app-network
+volumes:
+  mongo-data:
+    driver: local
+networks:
+  chart-app-network:
+    driver: bridge
