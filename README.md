@@ -6,9 +6,9 @@
 
 ### 💬 ChatLoop Repository Stats
 
-[![Forks](https://img.shields.io/github/forks/Debjyoti2004/Chat-app?label=Forks&logo=github)](https://github.com/Debjyoti2004/Chat-app/network)
-[![Stars](https://img.shields.io/github/stars/Debjyoti2004/Chat-app?label=Stars&logo=github)](https://github.com/Debjyoti2004/Chat-app/stargazers)
-![Last Commit](https://img.shields.io/github/last-commit/Debjyoti2004/Chat-app?color=green&label=Last%20Commit)
+[![Forks](https://img.shields.io/github/forks/Debjyoti2004/ChatLoop?label=Forks&logo=github)](https://github.com/Debjyoti2004/ChatLoop/network)
+[![Stars](https://img.shields.io/github/stars/Debjyoti2004/ChatLoop?label=Stars&logo=github)](https://github.com/Debjyoti2004/ChatLoop/stargazers)
+![Last Commit](https://img.shields.io/github/last-commit/Debjyoti2004/ChatLoop?color=green&label=Last%20Commit)
 
 
 ## 📝 Introduction:
@@ -77,7 +77,7 @@ cd backend
 ```
 2. Create a `.env` file and add the following content (modify the values as needed):
 ```env
-MONGODB_URI=mongodb://mongoadmin:secret@mongodb:27017/dbname?authSource=admin
+MONGO_URI=mongodb://root:admin@mongo:27017/chat-app?authSource=admin
 JWT_SECRET=your_jwt_secret_key
 PORT=5001
 ```
@@ -86,7 +86,7 @@ PORT=5001
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/Debjyoti2004/Chat-app.git
+git clone https://github.com/Debjyoti2004/ChatLoop.git
 ```
 
 ## 🏗️ Build and Run the Application"
@@ -96,7 +96,7 @@ Follow these steps to build and run the application:
 1. Build & Run the Containers:
 
 ```bash
-cd full-stack_chatApp
+cd ChatLoop
 ```
 ```bash
 docker-compose up -d --build
@@ -105,7 +105,7 @@ docker-compose up -d --build
 2. Access the application in your browser:
 
 ```
-http://localhost
+http://localhost:8080
 ```
 ---
 
@@ -114,16 +114,16 @@ http://localhost
 Follow these simple steps to get the project up and running on your local Host using docker.
 
 ```bash
-git clone https://github.com/Debjyoti2004/Chat-app.git
+git clone https://github.com/Debjyoti2004/ChatLoop.git
 ```
 
 ```bash
-cd full-stack_chatApp
+cd ChatLoop
 ```
 ## Create a Docker network:
 
 ```bash
-docker network create full-stack
+docker network create chart-app-network
 ```
 
 ## 🛠️ Building the Frontend
@@ -133,13 +133,13 @@ cd frontend
 ```
 
 ```bash
-docker build -t full-stack_frontend .
+docker build -t chat-app-frontend .
 ```
 
 ### Run the Frontend container:
 
 ```bash
-docker run -d --network=full-stack  -p 5173:5173 --name frontend full-stack_frontend:latest
+docker run -dp --network=chart-app-network 8080:80 chat-app-frontend
 ```
 #### The frontend will now be accessible on port 5173.
 
@@ -160,14 +160,18 @@ cd backend
 ### Build the Backend image:
 
 ```bash
-docker build -t full-stack_backend .
+docker build -t chat-app-backend .
 ```
 
 ### Run the Backend container:
 
 ```bash
-docker run -d --network=full-stack --add-host=host.docker.internal:host-gateway -p 5001:5001 --env-file .env full-stack_backend
+docker run -dp --network=chart-app-network 5001:5001 --env-file .env chat-app-backend
 
+```
+### For Testing the backend Hit this Endpoint
+```sh
+http://localhost:5001/api/auth/test
 ```
 #### This will build and run the backend container, exposing the backendAPI on port 5001.
 
@@ -180,7 +184,7 @@ docker-compose logs -f
 
 ### Once the backend and frontend containers are running, you can access the application in your browser:
 
-`Frontend: http://localhost`
+`Frontend: http://localhost:8080`
 
 
 You can now interact with the real-time chat app and start messaging!
@@ -207,16 +211,6 @@ We invite you to join our community of developers and contributors. Let's work t
 * **Open an issue** to report bugs or suggest features
 * **Submit a pull request** to contribute code changes
 
-## 🔮 Future Plans
-
-
-This project is evolving, and here are a few exciting things on the horizon:
-
-* [x] **CI/CD Pipelines:** Implement Continuous Integration and Continuous Deployment pipelines to automate testing and deployment.
-* [x] **Kubernetes (K8s):** Add Kubernetes manifests for container orchestration to deploy the app on cloud platforms like AWS, GCP, or Azure.
-* [x] **Feature Expansion:** Add more features like group chats, media sharing, and user status updates.
-* **Stay tuned for updates as we continue to improve and expand this project!**
-
 ---
 
 ## 📚 Project Snapshots:
@@ -224,10 +218,6 @@ This project is evolving, and here are a few exciting things on the horizon:
 ![Settings](frontend/public/settings.png)
 
 ![chat](frontend/public/chat.png)
-
-![logout](/frontend/public/logout.png)
-
-![Login](/frontend/public/login.png)
 
 
 
